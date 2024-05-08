@@ -5,6 +5,9 @@ public class Main {
         String[] in = br.readLine().split(" ");
         int a = Integer.parseInt(in[0]);
         int b = Integer.parseInt(in[1]);
+        int tmp = a;
+        a = b;
+        b = tmp;
         System.out.print(a + " " + b);
    }
 }
