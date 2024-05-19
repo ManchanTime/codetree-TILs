@@ -4,7 +4,9 @@ public class Main {
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String[] in = br.readLine().split(" ");
-        Arrays.sort(in);
+        Arrays.sort(in,(a, b) 
+            -> Integer.compare(Integer.parseInt(a), Integer.parseInt(b)));
+        
         int a = Integer.parseInt(in[0]);
         int b = Integer.parseInt(in[1]);
         System.out.println(b-a);
