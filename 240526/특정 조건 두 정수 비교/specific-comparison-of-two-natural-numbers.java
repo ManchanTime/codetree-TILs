@@ -8,12 +8,16 @@ public class Main {
         int b = Integer.parseInt(in[1]);
         int re1 = 1;
         int re2 = 1;
-        if(a > b){
+        if(a < b){
+            re1 = 1;
+        }else{
             re1 = 0;
         }
         
         if(a != b){
             re2 = 0;
+        }else{
+            re2 = 1;
         }
         System.out.println(re1 + " " + re2);
     }
