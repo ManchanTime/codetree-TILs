@@ -3,51 +3,28 @@ import java.util.*;
 
 public class Main {
 
-    public static int[][] store;
+    public static int[][] DP;
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
         int[][] map = new int[N][N];
-        store = new int[N][N];
-        NodeInfo start = new NodeInfo(0, 0);
+        DP = new int[N][N];
         for(int i = 0; i < N; i++) {
             String[] in = br.readLine().split(" ");
             for(int j = 0; j < N; j++) {
                 map[i][j] = Integer.parseInt(in[j]);
             }
         }
-        bfs(map, start, N);
-        System.out.println(store[N-1][N-1]);
-    }
-
-    public static void bfs(int[][] map, NodeInfo start, int N) {
-        int[] moveX = {0, 1};
-        int[] moveY = {1, 0};
-        Queue<NodeInfo> q = new LinkedList<>();
-        q.add(start);
-        store[0][0] = map[0][0];
-        while(!q.isEmpty()) {
-            NodeInfo now = q.poll();
-            for(int i = 0; i < 2; i++) { 
-                int x = now.x + moveX[i];
-                int y = now.y + moveY[i];
-                if(x < 0 || x >= N)
-                    continue;
-                if(y < 0 || y >= N){
-                    continue;
-                }
-                store[x][y] = Math.max(store[x][y], store[now.x][now.y] + map[x][y]);
-                q.add(new NodeInfo(x, y));
+        DP[0][0] = map[0][0];
+        for(int i = 1; i < N; i++) {
+            DP[0][i] = map[0][i] + DP[0][i-1];
+            DP[i][0] = map[i][0] + DP[i-1][0];
+        }
+        for(int i = 1; i < N; i++) {
+            for(int j = 1; j < N; j++) {
+                DP[i][j] = map[i][j] + Math.max(DP[i-1][j], DP[i][j-1]);
             }
         }
-    }
-
-    public static class NodeInfo {
-        int x;
-        int y;
-        public NodeInfo(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
+        System.out.println(DP[N-1][N-1]);
     }
 }
