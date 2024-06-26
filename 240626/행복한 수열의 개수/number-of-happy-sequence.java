@@ -24,7 +24,7 @@ public class Main {
             }
             tmp = new int[N];
             for(int j = 0; j < N; j++) {
-                tmp[j] = map[i][j];
+                tmp[j] = map[j][i];
             }
             if(check(tmp, M)) {
                 result++;
@@ -39,6 +39,9 @@ public class Main {
             if(previous == c[i]) {
                 count++;
             }else{
+                if(count >= m) {
+                    return true;
+                }
                 count = 1;
                 previous = c[i];
             }
