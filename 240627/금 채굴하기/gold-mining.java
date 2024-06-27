@@ -19,7 +19,7 @@ public class Main {
         int result = 0;
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
-                for(int k = 0; k < n; k++) {
+                for(int k = 0; k <= n; k++) {
                     int cost = k * k + (k + 1) * (k + 1);
                     int cnt = count(map, k, i, j);
                     if(cost <= cnt * m) {
