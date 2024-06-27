@@ -24,19 +24,21 @@ public class Main {
         System.out.println(result);
     }
     public static int count(int[][] map, int startX, int startY) {
-        int[] moveX = {0, 1, 1, 1, 2, -2, 1, 0, 1, 1, 0, 0};
-        int[] moveY = {1, 1, 0, 1, 0, 0, 0, 1, 0, -1, 2, -1};
+        int[] moveX = {0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, -1, -1, 0, 0};
+        int[] moveY = {1, 1, 0, 1, 0, 0, 0, 1, 0, -1, 1, 1, 0, 0, -1, -1};
         int result = map[startX][startY];
-        int tmp = 0, store = 0;;
+        int tmp = 0, store = 0;
         int count = 0;
-        for(int i = 0; i < 12; i++) {
+        for(int i = 0; i < moveX.length; i++) {
+            int x = startX + moveX[i];
+            int y = startY + moveY[i];
             if(count == 2) {
                 count = 0;
                 store = Math.max(store, tmp);
                 tmp = 0;
             }
-            int x = startX + moveX[i];
-            int y = startY + moveY[i];
+            count++;
+
             if(x < 0 || x >= map.length) {
                 continue;
             }
@@ -44,8 +46,8 @@ public class Main {
                 continue;
             }
             tmp += map[x][y];
-            count++;
         }
+
         return result + store;
     }
 }
