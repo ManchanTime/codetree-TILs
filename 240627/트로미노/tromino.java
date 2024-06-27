@@ -47,6 +47,7 @@ public class Main {
             }
             tmp += map[x][y];
         }
+        store = Math.max(store, tmp);
         return result + store;
     }
 }
