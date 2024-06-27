@@ -22,7 +22,7 @@ public class Main {
                 for(int k = 0; k < n; k++) {
                     int cost = k * k + (k + 1) * (k + 1);
                     int cnt = count(map, k, i, j);
-                    if(cost < cnt * m) {
+                    if(cost <= cnt * m) {
                         result = Math.max(result, cnt);
                     }
                 }
