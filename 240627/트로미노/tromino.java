@@ -24,11 +24,12 @@ public class Main {
         System.out.println(result);
     }
     public static int count(int[][] map, int startX, int startY) {
-        int[] moveX = {0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, -1, -1, 0, 0};
-        int[] moveY = {1, 1, 0, 1, 0, 0, 0, 1, 0, -1, 1, 1, 0, 0, -1, -1};
+        int[] moveX = {0, 1, 0, 1, -1, 1, -1, 0, -1, 0, 0, 0};
+        int[] moveY = {-1, 0, 1, 0, 0, 0, 0, 1, 0, -1, -1, 1};
         int result = map[startX][startY];
         int tmp = 0, store = 0;
         int count = 0;
+
         for(int i = 0; i < moveX.length; i++) {
             int x = startX + moveX[i];
             int y = startY + moveY[i];
@@ -38,7 +39,6 @@ public class Main {
                 tmp = 0;
             }
             count++;
-
             if(x < 0 || x >= map.length) {
                 continue;
             }
@@ -47,7 +47,6 @@ public class Main {
             }
             tmp += map[x][y];
         }
-
         return result + store;
     }
 }
