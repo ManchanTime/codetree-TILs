@@ -30,7 +30,7 @@ public class Main {
         int[] moveY = {-1, +1, +1, -1};
         int result = 0;
         Queue<NodeInfo> q = new LinkedList<>();
-        q.add(new NodeInfo(startX, startY, -1, 0));
+        q.add(new NodeInfo(startX, startY, -1, map[startX][startY])) ;
         while(!q.isEmpty()) {
             NodeInfo now = q.poll();
             if(now.type == -1) {
@@ -62,11 +62,17 @@ public class Main {
                 if(case2 != null)
                     q.add(case2);
             }
-            else if(now.type == 3 && now.x == startX && now.y == startY) {
-                result = Math.max(result, now.value);
+            else if(now.type == 3) {
+                if(now.x == startX && now.y == startY)
+                    result = Math.max(result, now.value);
+                else {
+                    NodeInfo case1 = calc(map, moveX, moveY, now, N, 3);
+                    if(case1 != null)
+                        q.add(case1);
+                }
             }
         }
-        return result;
+        return result - map[startX][startY];
     }
 
     public static NodeInfo calc(int[][] map, int[] moveX, int[] moveY, NodeInfo now, int N, int i) {
