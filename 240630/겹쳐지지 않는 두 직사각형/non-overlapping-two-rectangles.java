@@ -17,13 +17,34 @@ public class Main {
             }
         }
 
-        for(int i = 0; i < N - 1; i++) {
-            for(int j = 0; j < M - 1; j++) {
-                for(int k = i; k < N - 1; k++) {
-                    for(int t = j; t < M - 1; t++) {
+        for(int i = 0; i < N; i++) {
+            for(int j = 0; j < M; j++) {
+                for(int k = i; k < N; k++) {
+                    for(int t = j; t < M; t++) {
+//                        System.out.println(calc(grid, i, j, k, t) + " --> " + i + " " + j + " " + k + " " + t);
                         int tmp = calc(grid, i, j, k, t);
-                        tmp += Math.max(calc(grid, k + 1, t, N - 1, M - 1), calc(grid, k, t + 1, N - 1, M - 1));
-                        result = Math.max(result, tmp);
+                        int tmp2 = Integer.MIN_VALUE;
+                        if(i == 0 && j == 0 && k == N - 1 && t == M - 1) {
+                            continue;
+                        }
+                        //가로
+                        int x1 = i - 1, x2 = k + 1;
+                        if(x1 >= 0) {
+                            tmp2 = Math.max(tmp2, bestCalc(grid, 0, 0, x1, M - 1));
+                        }
+                        if(x2 < N){
+                            tmp2 = Math.max(tmp2, bestCalc(grid, x2, 0, N - 1, M - 1));
+                        }
+
+                        //새로
+                        int y1 = j - 1, y2 = t + 1;
+                        if(y1 >= 0) {
+                            tmp2 = Math.max(tmp2, bestCalc(grid, 0, 0, N - 1, y1));
+                        }
+                        if(y2 < M) {
+                            tmp2 = Math.max(tmp2, bestCalc(grid, 0, y2, N - 1, M - 1));
+                        }
+                        result = Math.max(result, tmp + tmp2);
                     }
                 }
             }
@@ -31,9 +52,9 @@ public class Main {
         System.out.println(result);
     }
 
-    public static int calc(int[][] grid, int startX, int startY, int endX, int endY) {
-        int result = Integer.MIN_VALUE;
+    public static int bestCalc(int[][] grid, int startX, int startY, int endX, int endY) {
         int count = 0;
+        int result = Integer.MIN_VALUE;
         for(int i = startX; i <= endX; i++) {
             for(int j = startY; j <= endY; j++) {
                 count += grid[i][j];
@@ -41,6 +62,16 @@ public class Main {
             }
         }
         return result;
+    }
+
+    public static int calc(int[][] grid, int startX, int startY, int endX, int endY) {
+        int count = 0;
+        for(int i = startX; i <= endX; i++) {
+            for(int j = startY; j <= endY; j++) {
+                count += grid[i][j];
+            }
+        }
+        return count;
     }
 
     public static class SquareInfo {
