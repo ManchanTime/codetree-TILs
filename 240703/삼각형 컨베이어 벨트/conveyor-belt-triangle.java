@@ -9,7 +9,7 @@ public class Main {
         int n = Integer.parseInt(in[0]);
         int t = Integer.parseInt(in[1]);
         List<Deque<Integer>> dequeList = new ArrayList<>();
-        for(int i = 0; i < n; i++) {
+        for(int i = 0; i < 3; i++) {
             in = br.readLine().split(" ");
             dequeList.add(new ArrayDeque<Integer>());
             for(int j = 0; j < n; j++) {
@@ -17,10 +17,10 @@ public class Main {
             }
         }
         for(int i = 0; i < t; i++) {
-            moveBelt(dequeList, n);
+            moveBelt(dequeList, 3);
         }
 
-        for(int i = 0; i < n; i++) {
+        for(int i = 0; i < 3; i++) {
             for(int j = 0; j < n; j++) {
                 System.out.print(dequeList.get(i).pop() + " ");
             }
@@ -29,14 +29,12 @@ public class Main {
     }
     public static void moveBelt(List<Deque<Integer>> dequeList, int n) {
         int tmp = 0;
-        int last = 0;
+        int last = dequeList.get(2).getLast();
         for(int i = 0; i < n - 1; i++) {
-            tmp = dequeList.get(i).getLast();
-            dequeList.get(i).removeLast();
+            tmp = dequeList.get(i).removeLast();
             dequeList.get(i + 1).addFirst(tmp);
         }
 
-        dequeList.get(0).addFirst(dequeList.get(n - 1).getLast());
-        dequeList.get(n - 1).removeLast();
+        dequeList.get(0).addFirst(dequeList.get(n - 1).removeLast());
     }
 }
