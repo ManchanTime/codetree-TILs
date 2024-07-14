@@ -25,13 +25,9 @@ public class Main {
         grid = new int[n][n];
         count = 0;
         bombs = new Point[10];
-        if(n == 1){
-            System.out.println(1);
-            return;
-        }
         for(int i = 0; i < n; i++) {
             String[] in = br.readLine().split(" ");
-            for(int j = 0; j < 4; j++) {
+            for(int j = 0; j < n; j++) {
                 grid[i][j] = Integer.parseInt(in[j]);
                 if(grid[i][j] == 1) {
                     bombs[count] = new Point(i, j);
@@ -48,7 +44,7 @@ public class Main {
         if(index == 0) {
             int count = 0;
             for(int i = 0; i < n; i++) {
-                for(int j = 0; j < 4; j++) {
+                for(int j = 0; j < n; j++) {
                     if(grid[i][j] >= 1) {
                         count++;
                     }
