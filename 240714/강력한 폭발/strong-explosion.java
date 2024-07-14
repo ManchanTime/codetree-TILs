@@ -25,6 +25,10 @@ public class Main {
         grid = new int[n][n];
         count = 0;
         bombs = new Point[10];
+        if(n == 1){
+            System.out.println(1);
+            return;
+        }
         for(int i = 0; i < n; i++) {
             String[] in = br.readLine().split(" ");
             for(int j = 0; j < 4; j++) {
