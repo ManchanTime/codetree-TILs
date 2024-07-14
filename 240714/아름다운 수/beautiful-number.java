@@ -25,10 +25,8 @@ public class Main {
         else if(re.length() > n){
             return;
         }
-        for(int i = 0; i < possible.length; i++) {
-            if(!used[i]){
-                backTracking(re + possible[i]);
-            }
+        for (String s : possible) {
+            backTracking(re + s);
         }
     }
 }
