@@ -55,6 +55,7 @@ public class Main {
                 }else{
                     backTracking(index + 1);
                 }
+                used[i] = false;
             }
         }
     }
