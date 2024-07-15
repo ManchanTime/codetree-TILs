@@ -35,13 +35,12 @@ public class Main {
     public static void backTracking(int index, boolean flag) {
         if(!flag) {
             result = Math.max(result, index);
- 
             return;
         }
         for(int i = 0; i < n; i++) {
             if(!used[i]) {
                 used[i] = true;
-                if(index == 0 || line[i].x >= store[index - 1].y) {
+                if(index == 0 || line[i].x > store[index - 1].y) {
                     store[index] = line[i];
                     backTracking(index + 1, true);
                 }else{
