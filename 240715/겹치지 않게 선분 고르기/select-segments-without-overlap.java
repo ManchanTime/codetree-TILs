@@ -4,7 +4,7 @@ import java.util.*;
 public class Main {
 
     public static Point[] line;
-    public static ArrayList<Point> store;
+    public static Point[] store;
     public static int result;
     public static boolean[] used;
     public static int n;
@@ -14,50 +14,43 @@ public class Main {
         used = new boolean[n];
         line = new Point[n];
         result = 0;
-        store = new ArrayList<>();
+        store = new Point[n];
         String[] in;
         for(int i = 0; i < n; i++) {
             in = br.readLine().split(" ");
             line[i] = new Point(Integer.parseInt(in[0]), Integer.parseInt(in[1]));
         }
-        backTracking(0);
+        Arrays.sort(line, new Comparator<Point>() {
+            @Override
+            public int compare(Point o1, Point o2) {
+                if(o1.x == o2.x)
+                    return o1.y - o2.y;
+                return o1.x - o2.x;
+            }
+        });
+        backTracking(0, true);
         System.out.println(result);
     }
 
-    public static void backTracking(int index) {
-        if(index == n) {
-            result = Math.max(result, store.size());
-            // System.out.println("start");
-            // System.out.println(store.get(0).x + " " + store.get(0).y);
-            // for (Point i : store) {
-            //     System.out.println(i.x + " " + i.y);
-            // }
-            // System.out.println(store.size());
-            // System.out.println();
+    public static void backTracking(int index, boolean flag) {
+        if(!flag) {
+            result = Math.max(result, index);
+//            for(int i = 0; i < index; i++) {
+//                System.out.print(store[i].x + " " + store[i].y + " ");
+//            }
+//            System.out.println();
             return;
         }
         for(int i = 0; i < n; i++) {
             if(!used[i]) {
                 used[i] = true;
-                int x = line[i].x;
-                int y = line[i].y;
-                boolean flag = false;
-                for(Point p : store) {
-                    if (p.x <= x && p.y >= x || p.x <= y && p.y >= y || x <= p.x && y >= p.x || x <= p.y && y >= p.y) {
-                        //System.out.println("overlap " + line[i].x + " " + line[i].y);
-                        flag = true;
-                        break;
-                    }
-                }
-                if(!flag) {
-                    //System.out.println("-------- " + line[i].x + " " + line[i].y);
-                    store.add(line[i]);
-                    backTracking(index + 1);
-                    store.remove(store.size() - 1);
+                if(index == 0 || line[i].x >= store[index - 1].y) {
+                    store[index] = line[i];
+                    backTracking(index + 1, true);
                 }else{
-                    used[i] = false;
-                    backTracking(index + 1);
+                    backTracking(index + 1, false);
                 }
+                used[i] = false;
             }
         }
     }
