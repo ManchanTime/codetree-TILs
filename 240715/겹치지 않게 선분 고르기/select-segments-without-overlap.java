@@ -35,10 +35,7 @@ public class Main {
     public static void backTracking(int index, boolean flag) {
         if(!flag) {
             result = Math.max(result, index);
-//            for(int i = 0; i < index; i++) {
-//                System.out.print(store[i].x + " " + store[i].y + " ");
-//            }
-//            System.out.println();
+ 
             return;
         }
         for(int i = 0; i < n; i++) {
@@ -48,11 +45,12 @@ public class Main {
                     store[index] = line[i];
                     backTracking(index + 1, true);
                 }else{
-                    backTracking(index + 1, false);
+                    backTracking(index, false);
                 }
                 used[i] = false;
             }
         }
+        backTracking(index, false);
     }
 
     public static class Point {
