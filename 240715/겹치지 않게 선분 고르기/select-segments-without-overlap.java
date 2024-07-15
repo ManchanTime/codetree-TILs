@@ -27,6 +27,8 @@ public class Main {
     public static void backTracking(int index) {
         if(index == n) {
             result = Math.max(result, store.size());
+            // System.out.println("start");
+            // System.out.println(store.get(0).x + " " + store.get(0).y);
             // for (Point i : store) {
             //     System.out.println(i.x + " " + i.y);
             // }
@@ -53,9 +55,9 @@ public class Main {
                     backTracking(index + 1);
                     store.remove(store.size() - 1);
                 }else{
+                    used[i] = false;
                     backTracking(index + 1);
                 }
-                used[i] = false;
             }
         }
     }
