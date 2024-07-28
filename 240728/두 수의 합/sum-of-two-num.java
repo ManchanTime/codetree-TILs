@@ -19,11 +19,13 @@ public class Main {
         int result = 0;
         for(int key : map.keySet()) {
             if(map.getOrDefault(key, 0) > 0 && map.getOrDefault(k - key, 0) > 0) {
-                if(key == k / 2) {
+                if(k % 2 == 0 && key == k / 2) {
                     result += map.get(key) * (map.get(k - key) - 1) / 2;
                 }
-                else
-                    result += map.get(key) * map.get(k - key) / 2;
+                else{
+                    result += map.get(key) * map.get(k - key);
+                }
+                map.put(k - key, 0);
             }
         }
         System.out.println(result);
